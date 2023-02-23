@@ -4,21 +4,15 @@
 // If any argument is not a whole number, skip it.
 // Do not support negative numbers though.
 
-// console.log('Hi from terminal!');
-// console.log(process.argv);
-
 const inputValues = process.argv.slice(2);
 
-let sum = 0;
+let total = 0;
 
 for (const item of inputValues) {
-  //   console.log(typeof Number(item));
-
   const converted = Number(item);
-
   if (Number.isInteger(converted) && converted > 0) {
-    sum = sum + converted;
+    total += converted;
   }
 }
 
-console.log(sum);
+console.log(total);
