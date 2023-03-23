@@ -7,6 +7,9 @@
 - [ ] Error handling with Promises (vs callbacks)
 - [ ] Parallelizing async things (Promise.all)
 
+### Video
+[https://vimeo.com/811073938/bf10918e66](https://vimeo.com/811073938/bf10918e66)
+
 ### Promises
 - An object that may (or may not) resolve to a value in the future
 - Offers an alternative solution to async programming
