@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // ------------------ ROUTES/ENDPOINTS
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello World! <a href="/notes">Go to notes app</a>');
 });
 
 app.get('/test/:id', (req, res) => {
