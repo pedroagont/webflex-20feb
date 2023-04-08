@@ -5,10 +5,16 @@
             <a href="/notes/<%= id %>">
                 <%= notes[id].content %>
             </a>
-            <form style="display:inline" action="/api/notes/<%= id %>/delete" method="POST">
+            <form action="/api/notes/<%= id %>/delete" method="POST">
                 <button type="submit">X</button>
             </form>
         </li>
         <% } %>
 </ul>
 <a href="/notes/new">Create new note</a>
+
+<br>
+
+<form action="/api/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
