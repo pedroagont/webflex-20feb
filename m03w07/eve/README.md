@@ -6,5 +6,5 @@
 - [ ] Encrypted cookies
 - [ ] HTTP Secure (HTTPS)
 - [ ] REST
-- [ ] More HTTP methods
+- [ ] More HTTP methods GET POST PUT PATCH DELETE
 - [ ] Method Override [Stretch]

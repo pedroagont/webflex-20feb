@@ -18,6 +18,18 @@ const db = {
       content: 'Have fun!',
     },
   },
+  users: {
+    1: {
+      id: 1,
+      email: '1@1',
+      password: '123',
+    },
+    2: {
+      id: 2,
+      email: '2@2',
+      password: '123',
+    },
+  },
 };
 
 // ------------------ SETUP & MIDDLEWARE
@@ -80,6 +92,55 @@ app.get('/notes/:id', (req, res) => {
   // populate template variables and render
   const templateVars = { note };
   res.render('notes-show', templateVars);
+});
+
+// AUTH RENDERING ROUTES - INTERACTING WITH THE USER
+// AUTH (REGISTER, LOGIN)
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+// AUTH REST API
+// AUTH (REGISTER, LOGIN, LOGOUT)
+app.post('/api/auth/register', (req, res) => {
+  const { email, password } = req.body;
+  const id = Math.floor(Math.random() * 100);
+
+  db.users[id] = {
+    id,
+    email,
+    password,
+  };
+
+  console.log(db.users);
+
+  res.redirect('/login');
+});
+
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body;
+
+  let user = null;
+
+  for (const id in db.users) {
+    if (db.users[id].email === email) {
+      user = db.users[id];
+    }
+  }
+
+  if (!user) {
+    return res.status(400).send('Email not found');
+  }
+
+  if (user.password !== password) {
+    return res.status(400).send('Passwords do not match');
+  }
+
+  res.redirect('/notes');
 });
 
 // REST API CRUD NOTES - NOT INTERACTING WITH THE USER, JUST DATA HANDLERS
