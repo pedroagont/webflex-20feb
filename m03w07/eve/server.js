@@ -50,75 +50,117 @@ app.get('/test/:id', (req, res) => {
   res.send('Test route!');
 });
 
-// RENDERING ROUTES
+// NOTES RENDERING ROUTES - INTERACTIONS WITH THE USER
+// NOTES (LIST, NEW, SHOW)
 // NOTES LIST
 app.get('/notes', (req, res) => {
+  // populate template variables
   const templateVars = {
     notes: db.notes,
   };
+
+  // render template with variables
   res.render('notes-list', templateVars);
 });
 
 // NOTES NEW
 app.get('/notes/new', (req, res) => {
+  // render template
   res.render('notes-new');
 });
 
 // NOTES SHOW
 app.get('/notes/:id', (req, res) => {
-  const { id } = req.params;
-  const note = db.notes[id];
+  // Refer to the note and validate it exists
+  const note = db.notes[req.params.id];
   if (!note) {
     res.status(404).send('Note not found');
   }
 
+  // populate template variables and render
   const templateVars = { note };
-
   res.render('notes-show', templateVars);
 });
 
-// CRUD API NOTES
-// CREATE - POST
+// REST API CRUD NOTES - NOT INTERACTING WITH THE USER, JUST DATA HANDLERS
+// CREATE NOTE API - POST
 app.post('/api/notes', (req, res) => {
+  // body properties validation
   const { content } = req.body;
+  if (!content) {
+    return res.status(400).send('Provide content to create a note');
+  }
+
+  // creates an id and stores new note object in database
   const id = Math.floor(Math.random() * 100);
   db.notes[id] = {
     id,
     content,
   };
+
+  // print database to see results
   console.log(db.notes);
 
+  // redirect to main notes page to see new created note
   res.redirect('/notes');
 });
 
-// READ ALL - GET
+// READ ALL NOTES API - GET
 app.get('/api/notes', (req, res) => {
+  // all notes in json
   res.send(db.notes);
 });
 
-// READ ONE - GET
+// READ ONE NOTE API - GET
 app.get('/api/notes/:id', (req, res) => {
-  const { id } = req.params;
-  res.send(db.notes[id]);
+  // Refer to the note and validate it exists
+  const note = db.notes[req.params.id];
+  if (!note) {
+    res.status(404).send('Note not found');
+  }
+
+  // one note in json
+  res.send(note);
 });
 
-// UPDATE - POST/PUT
+// UPDATE NOTE API - POST/PUT
 app.post('/api/notes/:id/edit', (req, res) => {
+  // body properties validation
   const { content } = req.body;
-  const { id } = req.params;
-  db.notes[id] = {
-    id,
-    content,
-  };
+  if (!content) {
+    return res.status(400).send('Provide content to create a note');
+  }
+
+  // Refer to the note and validate it exists
+  const note = db.notes[req.params.id];
+  if (!note) {
+    res.status(404).send('Note not found');
+  }
+
+  // after validating all steps, update the notes content
+  db.notes[req.params.id].content = content;
+
+  // print database to see results
   console.log(db.notes);
 
+  // redirect to main notes page
   res.redirect('/notes');
 });
 
-// DELETE - POST/DEL
+// DELETE NOTE API - POST/DELETE
 app.post('/api/notes/:id/delete', (req, res) => {
-  const { id } = req.params;
-  delete db.notes[id];
+  // Refer to the note and validate it exists
+  const note = db.notes[req.params.id];
+  if (!note) {
+    res.status(404).send('Note not found');
+  }
+
+  // after validating all steps, delete the note
+  delete db.notes[req.params.id];
+
+  // print database to see results
+  console.log(db.notes);
+
   res.redirect('/notes');
 });
 
