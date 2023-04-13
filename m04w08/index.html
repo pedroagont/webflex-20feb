@@ -7,15 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Side JS & jQuery 🪄</title>
 
+    <!-- 1. External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- 2. Custom CSS -->
     <link rel="stylesheet" href="./style.css">
 
-    <script defer src="./app.js"></script>
+    <!-- 1. External JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- 2. Custom JS -->
+    <!-- <script defer src="./app-vanillajs.js"></script> -->
+    <script defer src="./app-jQuery.js"></script>
 </head>
 
 <body>
     <h1 class="title">Client Side JS & jQuery 🪄</h1>
 
     <input type="text" id="myTextInput">
+
+    <div id="image-container">
+        <button>Change image!</button>
+        <img src="https://i2-prod.devonlive.com/incoming/article6439269.ece/ALTERNATES/s1200b/0_BD_DL_https-exmoorzooarrivals-_4-1-2_04.jpg"
+            alt="two capybaras in a grass" id="myImage" width="200">
+    </div>
 
 </body>
 
